@@ -1,0 +1,55 @@
+doctype 5
+html
+  head
+    title= title
+    meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0")
+    
+    <link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Englebert' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Walter+Turncoat' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
+    
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/themes/notifier-base.css')
+    link(rel='stylesheet', href='/css/themes/notifier-theme-plastic.css')
+    link(rel='stylesheet', href='/css/unsemantic.css')
+    link(rel='stylesheet', href='/css/flexslider.css')
+    link(rel="stylesheet", href="/css/spectrum.css")
+    link(rel='stylesheet', href='/css/style.css')
+    script(src="/js/lib/jquery.min.js")
+    script(src="/js/lib/jquery.easing.min.js")
+    script(src="/js/lib/jquery.base64.min.js")
+    script(src="/js/lib/jquery.cookie.js")
+    script(src="/js/lib/jquery.touchpunch.min.js")
+    script(src="/js/lib/jquery.fullscreen.js")
+    script(src="/js/lib/bootstrap.min.js")
+    script(src="/js/lib/underscore.js")
+    script(src="/js/lib/backbone.js")
+    script(src="/js/lib/backbone.notifier.js")
+    script(src="/js/lib/spectrum.js")
+    script(src="/js/lib/jquery.fittext.js")
+    script(src="/js/lib/jquery.flexslider.js")
+    
+    script(src="/js/_models.js")
+    script(src="/js/_views.js")
+    script(src="/js/_main.js")
+  body
+   #main.grid-container
+    #header.grid-100.grid-parent
+     #header-left.grid-10.tablet-grid-15.mobile-grid-50
+      block settings-button
+     #header-middle.grid-80.tablet-grid-70.mobile-grid-100
+      block page-headline
+     #header-right.grid-10.tablet-grid-15.mobile-grid-50
+      block venue-logo
+     .clear-both
+    .clear-both
+    #content.content_container.grid-100.tablet-grid-100.mobile-grid-100.grid-parent 
+     #content-main
+      block content
+    .clear-both
+    #footer.grid-100.tablet-grid-100.mobile-grid-100.grid-parent
+     block page-footer
+    block login
+    block settings

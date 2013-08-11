@@ -1,0 +1,4 @@
+# this is my ignore file with a nice comment at the top
+
+/public/js/lib/*     # ignore all js libs
+/public/css/style.css #ignore style rewrites

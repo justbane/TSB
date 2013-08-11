@@ -1,0 +1,144 @@
+@import "reset.css";
+@import "fonts.css";
+body {
+  padding: 0;
+  font: 14px Helvetica, Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+.clear-both {
+  clear: both;
+}
+.float-none {
+  float: none;
+}
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.img-rounded {
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+#main {
+  background-image: url("/img/cbg.png");
+  background-repeat: repeat;
+  background-size: 100% 100%;
+  padding: 0;
+}
+#main.fullScreen {
+  height: 100%;
+}
+#header {
+  background: url("../img/clear_bg.png") repeat-x 0 0;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 3px solid #c0c0c0;
+}
+#header-left #ts-logo {
+  cursor: pointer;
+}
+#header-left #settings-button {
+  margin-left: 20%;
+  margin-top: 20%;
+}
+#header-middle {
+  text-align: center;
+}
+#header-middle #page-headline {
+  display: block;
+  margin-top: 20px;
+}
+#header-middle h1 {
+  font-size: 7em;
+  line-height: 1.2em;
+}
+#header-right #venue-logo {
+  margin-right: 20%;
+  margin-top: 20%;
+}
+#content-main {
+  margin: 0 auto;
+}
+.slides {
+  width: 100%;
+}
+.slide-content {
+  position: relative;
+  top: 0;
+}
+.slide-content .special-img {
+  padding-top: 20px;
+}
+.slide-content .special-img .img-corners {
+  margin-bottom: 40px;
+  margin-left: 15%;
+}
+.slide-content .special-img .img-corners img {
+  max-width: 90%;
+}
+.slide-content .special-details {
+  padding-left: 60px;
+}
+.slide-content .special-details h1 {
+  font-size: 4.5em;
+  line-height: 1.2em;
+  margin-bottom: 20px;
+}
+.slide-content .special-details h2 {
+  font-size: 2.5em;
+  line-height: 1.2em;
+  margin-bottom: 25px;
+}
+.slide-content .special-details p {
+  font-size: 2.2em;
+  line-height: 1.3em;
+  color: #e6e6e6;
+  margin-bottom: 25px;
+}
+#footer #page-footer-left {
+  margin-left: 2.5%;
+}
+#footer #page-footer-left #footer-left-content {
+  text-align: center;
+}
+#footer #page-footer-left #footer-left-content img {
+  max-width: 66%;
+}
+#login-block,
+#settings-block {
+  color: #000;
+}
+@media (max-width: 979px) {
+  #header-middle #page-headline {
+    margin-top: 40px;
+  }
+  #header-middle h1 {
+    font-size: 4em;
+  }
+  .slide-content .special-img {
+    text-align: center;
+  }
+  .slide-content .special-img .img-corners {
+    float: none;
+    margin-left: 0;
+  }
+  .slide-content .special-img .img-corners img {
+    max-width: 100%;
+  }
+  .slide-content .special-details {
+    padding-left: 40px;
+  }
+  .slide-content .special-details h1 {
+    font-size: 4em;
+  }
+  .slide-content .special-details h2 {
+    font-size: 3em;
+  }
+  .slide-content .special-details p {
+    font-size: 2em;
+  }
+}

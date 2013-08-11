@@ -1,0 +1,94 @@
+extends layout
+
+block content
+  .flexslider.grid-100
+   ul.slides
+    li
+     img(src='/img/flex.png')
+     .slide-content.chalk
+      h1= defaultSlide
+      h2 Please login to load items from a venue.
+
+
+block login
+  #login-block.grid-25.tablet-grid-50.mobile-grid-100.float-none.modal.hide.fade
+   .modal-header
+    h1 Login
+   .modal-body
+    form(action="/login", method="post")#login-form
+     input(type="text", name="username", placeholder="Username")#username.input
+     input(type="password", name="passwd", placeholder="Password", autocomplete="off")#passwd.input
+   .modal-footer  
+     button(type="button")#login.btn-primary.btn Login
+
+
+block settings
+  #settings-block.grid-25.tablet-grid-50.mobile-grid-100.float-none.modal.hide.fade
+   .modal-header
+    h1 Settings
+   .modal-body
+    form(action="")#settings-form
+     .grid-parent
+      .grid-100
+       label(for="headerText") Board Heading Title & Color
+      .grid-65
+       input(type="text", name="headerText", maxlength="20")#headerText.input
+      .grid-35 
+       input(type="color", name="headerColor", value="#ff0000")#headerColor.input.input-mini
+     .grid-parent
+      .grid-100
+       label Board Heading Font
+      .grid-100
+       select(name="headerFont")#headerFont.input
+        include chunks/font-options
+     .grid-parent
+      .grid-100
+       label Special Title Font & Color
+      .grid-65
+       select(name="specialTitleFont")#specialTitleFont.input
+        include chunks/font-options
+      .grid-35 
+       input(type="color", name="specialTitleColor", value="#ffffff")#specialTitleColor.input.input-mini
+     .grid-parent
+      .grid-100
+       label Sub Title Font & Color
+      .grid-65
+       select(name="specialSubTitleFont")#specialSubTitleFont.input
+        include chunks/font-options
+      .grid-35 
+       input(type="color", name="specialSubTitleColor", value="#ffffff")#specialSubTitleColor.input.input-mini
+     .grid-parent
+      .grid-100
+       label Detail Font & Color
+      .grid-65
+       select(name="specialBodyFont")#specialBodyFont.input
+        include chunks/font-options
+      .grid-35 
+       input(type="color", name="specialBodyColor", value="#ffffff")#specialBodyColor.input.input-mini
+       
+   .modal-footer  
+     button(type="button")#logout.btn.float-left Logout
+     button(type="button", disabled="disabled")#fullscreen.btn.float-left.disabled FullScreen
+     button(type="button", data-dismiss="modal")#cancel.btn Cancel
+     button(type="button", data-dismiss="modal")#settings.btn-primary.btn Save
+
+
+block settings-button
+ #settings-button
+  img(src="/img/TSA_Icon.png")#ts-logo
+
+
+block venue-logo
+ #venue-logo
+
+
+block page-headline
+ #page-headline
+  h1.chalk= title
+
+
+block page-footer
+ #page-footer-left.grid-30.tablet-grid-30.mobile-grid-100
+  #footer-left-content
+   img(src="/img/tsa-phone.png")#tsa-phone
+ #page-footer-right.grid-50.tablet-grid-50.mobile-grid-100
