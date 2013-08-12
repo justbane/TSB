@@ -82,5 +82,5 @@ $(function () {
 
 // Window Ready
 $(window).ready(function() {
-    // adding small issue test
+    
 });
