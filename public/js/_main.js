@@ -60,24 +60,26 @@ $(function () {
 	});
     
     
-    // Sticky footer
+    // Sticky footer ad
     var bodyHeight = $("body").height();
-  	var vwptHeight = $(window).height();
-  	if (vwptHeight > bodyHeight) {
-    	$("#footer").css("position","fixed").css("bottom","-200px");
-  	}
-  	
-  	// Resize the window height;
-  	$(window).resize(function() {
-        $('#main').height($(window).height());
-    });
-    
-    $(window).trigger('resize');
-  	
-  	setInterval(function() {
-  	    location.reload();
-  	}, 28800000);
-    
+	var vwptHeight = $(window).height();
+	if (vwptHeight > bodyHeight) {
+		$("#footer").css("position","fixed").css("bottom","-200px");
+	}
+	var footer = new FooterView({ el: $('#footer') });
+	
+	
+	// Resize the window height;
+	$(window).resize(function() {
+		$('#main').height($(window).height());
+	});
+	
+	$(window).trigger('resize');
+	
+	setInterval(function() {
+		location.reload();
+	}, 28800000);
+
 });
 
 // Window Ready

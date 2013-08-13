@@ -279,6 +279,7 @@ $(function() {
 				controlNav: false,
 				directionNav: false,
 				pauseOnHover: false,
+				pauseOnAction: false,
 				easing: 'easeInOutExpo',
 				start: function(slider) {
 					// Initialize settings again to load the stored values in the slides
@@ -304,6 +305,36 @@ $(function() {
 	});
 
 
+	/**
+	* Footer Ad view
+	*/
+	FooterView = Backbone.View.extend({
+		
+		initialize: function() {
+			_.bindAll(this, 'render');
+			
+			this.timerStart = +new Date();
+			
+			this.render();
+		},
+		
+		render: function() {
+			var startTime = this.timerStart;
+			var interval = +new Date();
+			setInterval(function() {
+				if((interval - startTime) > 60000) {
+					// show the ad
+					console.log('show the ad');
+					startTime = +new Date();	
+				}
+				interval = +new Date();
+			}, 15000);
+			
+		}
+		
+	});
+	
+	
 	/*
 	 * Settings view -------------------------------
 	 */
