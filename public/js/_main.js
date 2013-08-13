@@ -64,7 +64,7 @@ $(function () {
     var bodyHeight = $("body").height();
   	var vwptHeight = $(window).height();
   	if (vwptHeight > bodyHeight) {
-    	$("#footer").css("position","fixed").css("bottom",0);
+    	$("#footer").css("position","fixed").css("bottom","-200px");
   	}
   	
   	// Resize the window height;
