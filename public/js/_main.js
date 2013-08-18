@@ -26,6 +26,8 @@ $(function () {
             venue.setUser($.parseJSON(localStorage.getItem('k0skUser')));
             venue.getItems();
             clearInterval(check);
+            // Start the footer ad timing
+            var footer = new FooterView({ el: $('#footer'), user: $.parseJSON(localStorage.getItem('k0skUser')) });
         }
     }, 3000);
     
@@ -49,37 +51,46 @@ $(function () {
         if (e.keyCode == 27) { location.reload() }   // esc
     });
     
-    // Reload the page on fullscreen change
-    $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange',function(){
-		var isFullScreen = document.fullScreen || 
-							document.mozFullScreen || 
-							document.webkitIsFullScreen;
-		if(!isFullScreen){
-			location.reload();
-		}
-	});
-    
-    
     // Sticky footer ad
     var bodyHeight = $("body").height();
 	var vwptHeight = $(window).height();
 	if (vwptHeight > bodyHeight) {
 		$("#footer").css("position","fixed").css("bottom","-200px");
 	}
-	var footer = new FooterView({ el: $('#footer') });
 	
 	
 	// Resize the window height;
 	$(window).resize(function() {
 		$('#main').height($(window).height());
 	});
-	
 	$(window).trigger('resize');
 	
+	
+	/**
+	 * Page Reloads
+	 */
+	
+	// Full page reload
 	setInterval(function() {
 		location.reload();
 	}, 28800000);
+	
+	// Reload the page on fullscreen change
+    $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange',function(){
+        var isFullScreen = document.fullScreen || 
+                            document.mozFullScreen || 
+                            document.webkitIsFullScreen;
+        if(!isFullScreen){
+            location.reload();
+        }
+    });
+    
+    // Reload on venue logo click
+    $('#venue-logo').click(function() {
+       location.reload(); 
+    });
 
+    
 });
 
 // Window Ready

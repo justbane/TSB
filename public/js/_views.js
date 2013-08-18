@@ -183,7 +183,7 @@ $(function() {
 				});
 			
 			} else if(specialDays.length === 0 && parseInt(special.recurring_day, 10) > 0) {
-				daysString += formatNum(special.recurring_month) + separator + format(days[parseInt(special.recurring_day, 10)]) + separator;
+				daysString += formatNum(special.recurring_month) + separator + format(days[(parseInt(special.recurring_day, 10) - 1)]) + separator;
 			}
 			
 			var startTime = special.start_time;
@@ -285,8 +285,9 @@ $(function() {
 					// Initialize settings again to load the stored values in the slides
 					var settings = new SettingsView({ el: $('#settings-block') });
 					// Setup the slider items look and feel
-					slider.find('.slide-content .special-details h1').fitText(1.5);
-					slider.find('.slide-content .special-details h2').fitText(1.8);
+					slider.find('.slide-content .special-details h1').fitText(1.7);
+					slider.find('.slide-content .special-details h2').fitText(2);
+					slider.find('.slide-content .special-details p').fitText(3);
 					var interval = setInterval(function() {
 						if(slider.count === 1) {
 							view.getItems();
@@ -311,20 +312,50 @@ $(function() {
 	FooterView = Backbone.View.extend({
 		
 		initialize: function() {
-			_.bindAll(this, 'render');
+			_.bindAll(this, 'getText', 'render');
 			
 			this.timerStart = +new Date();
 			
 			this.render();
 		},
 		
+		getText: function() {
+		    var venue = this.options.user;
+		    var str = '<p>';
+		          str += 'Favorite ';
+		          str += venue.venue_title;
+		          str += ' on your phone to get updates!<br />Get Today\'s Specials in the App Store & Google Play';
+		    str += '</p>';
+		    
+		    this.$el.find('#page-footer-right').html(str);
+		    
+		},
+		
 		render: function() {
+			var footer = this
 			var startTime = this.timerStart;
 			var interval = +new Date();
 			setInterval(function() {
-				if((interval - startTime) > 60000) {
+				if((interval - startTime) > 120000) {
 					// show the ad
-					console.log('show the ad');
+					footer.getText();
+                    footer.$el.animate({
+                        bottom : 0
+                    }, {
+                        duration : 1000,
+                        easing : 'easeOutBounce'
+                    });
+                    // Set the timeout for hiding the ad
+                    var hide = setTimeout(function() {
+                        footer.$el.animate({
+                            bottom : '-200px'
+                        }, {
+                            duration : 1000,
+                            easing : 'easeInExpo'
+                        });
+                        clearTimeout(hide);
+                    }, 10000);
+                    // Reset our start time
 					startTime = +new Date();	
 				}
 				interval = +new Date();

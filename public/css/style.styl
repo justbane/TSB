@@ -32,6 +32,7 @@ body
  background-repeat: repeat
  background-size: 100% 100%
  padding: 0
+ overflow: hidden
 
 #main.fullScreen
  height: 100%
@@ -65,8 +66,13 @@ body
 
 #header-right
  #venue-logo
+  cursor: pointer
   margin-right: 10%
   margin-top: 20%
+
+#venue-logo img
+#settings-button img
+ max-height: 160px
 
 #content-main
  margin: 0 auto
@@ -120,13 +126,22 @@ body
    text-align: center
    img
     max-width: 66%
-    float: right
+    position: relative
+    left: 13%
+    bottom: -5px
  
  #page-footer-right
   height: 200px
   margin-top: 50px
   position:relative
- 
+  
+  p
+   display: block
+   margin-top: 20px
+   font-size: 2em
+   color: #fae915
+   text-shadow: 2px 2px 2px #000
+   line-height: 1.2em
 
 #login-block
 #settings-block
