@@ -258,7 +258,7 @@ $(function() {
 
 			var view = this;
 			var specials = this.venueData.get('venue');
-			var interval = +new Date();
+			var intervaltime = +new Date();
 			var starttime = this.timerStart;
 			
 			// set the venue logo
@@ -301,16 +301,16 @@ $(function() {
 					}, 600000);
 				},
 				end: function(slider) {
-					if(interval - starttime > 600000) {
-					    view.getItems();
+					if(intervaltime - starttime > 600000) {
+					    // Bring the start timer up to date
 					    starttime = +new Date();
+					    view.timerStart = starttime;
+					    // Check for new items
+					    view.getItems();
 					}
-					interval = +new Date();
+					intervaltime = +new Date();
 				}
 			});
-			
-			// Bring the main timer up to date
-			this.timerStart = starttime;
 
 		}
 
