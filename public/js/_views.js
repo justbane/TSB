@@ -21,7 +21,9 @@ $(function() {
 
 		initialize: function() {
 			_.bindAll(this, 'setVenue', 'setUser', 'getItems', 'getDateTime', 'formatDates', 'formatDays', 'formatNumber', 'makeSlides', 'getImage', 'render');
-
+            
+            this.timerStart = +new Date();
+            
 			var notifier = this.notifier;
 		},
 
@@ -256,6 +258,8 @@ $(function() {
 
 			var view = this;
 			var specials = this.venueData.get('venue');
+			var interval = +new Date();
+			var starttime = this.timerStart;
 			
 			// set the venue logo
 			if(this.userInfo.venue_image) {
@@ -294,12 +298,19 @@ $(function() {
 						} else {
 							window.clearInterval(interval);
 						}
-					}, 10000);
+					}, 600000);
 				},
 				end: function(slider) {
-					view.getItems();
+					if(interval - starttime > 600000) {
+					    view.getItems();
+					    starttime = +new Date();
+					}
+					interval = +new Date();
 				}
 			});
+			
+			// Bring the main timer up to date
+			this.timerStart = starttime;
 
 		}
 
@@ -336,7 +347,7 @@ $(function() {
 			var startTime = this.timerStart;
 			var interval = +new Date();
 			setInterval(function() {
-				if((interval - startTime) > 120000) {
+				if((interval - startTime) > 60000) {
 					// show the ad
 					footer.getText();
                     footer.$el.animate({
