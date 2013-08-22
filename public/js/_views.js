@@ -157,7 +157,7 @@ $(function() {
 				}
 				
 			});
-			
+		console.log(specialDays);	
 			var separator = " ";
 			if(specialDays.length === 2) {
 				separator = " and ";
@@ -176,11 +176,13 @@ $(function() {
 			if(specialDays.length > 3) {
 				daysString += format(_.first(specialDays)) + " - " + format(_.last(specialDays)) + separator;
 			
-			} else if(specialDays.length < 3 && parseInt(special.recurring_day, 10) === 0) {
+			} else if(specialDays.length <= 3 && parseInt(special.recurring_day, 10) === 0) {
 				_.each(specialDays, function(day, key, list) {
 					daysString += format(day);
 					if(day != _.last(specialDays) || specialDays.length == 1) {
 						daysString += separator;
+					} else {
+						daysString += " ";
 					}
 				});
 			
