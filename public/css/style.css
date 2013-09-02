@@ -140,6 +140,10 @@ body {
 #settings-block {
   color: #000;
 }
+#ad-block.modal {
+  background-color: transparent;
+  width: 1024px;
+}
 /* 1024 breakpoint ------- */
 @media (max-width: 1025px) {
   #header-middle,

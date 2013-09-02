@@ -157,7 +157,7 @@ $(function() {
 				}
 				
 			});
-		console.log(specialDays);	
+				
 			var separator = " ";
 			if(specialDays.length === 2) {
 				separator = " and ";
@@ -207,8 +207,8 @@ $(function() {
 			validEndString = dates.end.month + "/" + dates.end.day + "/" + dates.end.year;
 			
 			var formattedStrings = {
-				date: recur + daysString + startEndTime,
-				valid: validStartString + " - " + validEndString
+				date: recur + daysString,
+				valid: startEndTime + " " + validStartString + " - " + validEndString
 			};
 			
 			return formattedStrings;
@@ -236,7 +236,7 @@ $(function() {
 					slideContent += '<div class="grid-65 tablet-grid-70 mobile-grid-100 special-details">';
 					slideContent += '<h1 class="chalk">' + special.title + '</h1>';
 					slideContent += '<h2 class="chalk">' + special.subtitle + '</h2>';
-					slideContent += '<p>' + dateString + "&nbsp;&nbsp;" + validString + '</p>';
+					slideContent += '<p>' + dateString + "<br />" + validString + '</p>';
 					slideContent += '<p>' + special.body + '</p>';
 					slideContent += '</div>';
 					slideContent += '</div>';
@@ -319,6 +319,70 @@ $(function() {
 	});
 
 
+	/**
+    * Ads view
+    */
+    AdsView = Backbone.View.extend({
+        
+        initialize: function() {
+            _.bindAll(this, 'getAdMedia', 'render');
+            
+            this.timerStart = +new Date();
+            
+            this.render();
+        },
+        
+        getAdMedia: function() {
+            var venue = this.options.user;
+            
+            var str = '<video width="1024" height="576" id="ads-video">';
+                str += '<source src="" type="video/mp4">';
+                str += '</video>';
+            
+            this.$el.find('.ads-content').html(str);
+            this.$el.find('.ads-content > #ads-video > source').attr('src', 'https://s3-us-west-1.amazonaws.com/tsimagery/tsb/sponsors/GuinnessClip1.mp4');
+            
+        },
+        
+        render: function() {
+            var adsBlock = this
+            var startTime = this.timerStart;
+            var interval = +new Date();
+            
+            setInterval(function() {
+                interval = +new Date();
+                
+                if((interval - startTime) > 90000) { // Every .5 min
+                    // show the ad
+                    adsBlock.getAdMedia();
+                    var modal = adsBlock.$el.modal({
+                        keyboard: false, 
+                        backdrop: 'static'
+                    }).css({
+                        'margin-left': function () {
+                            return window.pageXOffset-($(this).width() / 2 );
+                        }
+                    });
+                    var video = adsBlock.$el.find('.ads-content > #ads-video');
+                    // Listen for modal to be shown
+                    modal.on('shown', function(e) {
+                        video.get(0).play();
+                    });
+                    // Listen for video end to hide modal
+                    video.on('ended', function(e) {
+                        modal.modal('hide'); 
+                        // Reset our start time
+                        startTime = interval;
+                    });
+                }
+                
+            }, 30000); // Every 1.5 min
+            
+        }
+        
+    });
+	
+	
 	/**
 	* Footer Ad view
 	*/
@@ -441,6 +505,36 @@ $(function() {
 				$(item).val(settings.get($(item).attr('id')));
 
 			});
+			
+			// Listeners for the color pickers - TODO fix this make it less procedural
+			// Header title color
+			$('#headerColor').on('change', function() {
+			    $('#headerColorHex').val($(this).val());
+			});
+			$('#headerColorHex').on('change', function() {
+                $('#headerColor').val($(this).val());
+            });
+            // Special title color
+			$('#specialTitleColor').on('change', function() {
+                $('#specialTitleColorHex').val($(this).val());
+            });
+            $('#specialTitleColorHex').on('change', function() {
+                $('#specialTitleColor').val($(this).val());
+            });
+            // Special subtitle color
+            $('#specialSubTitleColor').on('change', function() {
+                $('#specialSubTitleColorHex').val($(this).val());
+            });
+            $('#specialSubTitleColorHex').on('change', function() {
+                $('#specialSubTitleColor').val($(this).val());
+            });
+            // Special body color
+            $('#specialBodyColor').on('change', function() {
+                $('#specialBodyColorHex').val($(this).val());
+            });
+            $('#specialBodyColorHex').on('change', function() {
+                $('#specialBodyColor').val($(this).val());
+            });
 
 		},
 		
@@ -491,18 +585,23 @@ $(function() {
 				slideAnimation: 'slide',
 				animationTimeout: 3000,
 				headerText: this.$el.find('input#headerText').val(),
-				headerColor: this.$el.find('input#headerColor').val(),
+				headerColorHex: this.$el.find('input#headerColorHex').val(),
+				headerColor: this.$el.find('input#headerColorHex').val(),
 				headerFont: this.$el.find('select#headerFont').val(),
 				specialTitleFont: this.$el.find('select#specialTitleFont').val(),
-				specialTitleColor: this.$el.find('input#specialTitleColor').val(),
+				specialTitleColorHex: this.$el.find('input#specialTitleColorHex').val(),
+				specialTitleColor: this.$el.find('input#specialTitleColorHex').val(),
 				specialSubTitleFont: this.$el.find('select#specialSubTitleFont').val(),
-				specialSubTitleColor: this.$el.find('input#specialSubTitleColor').val(),
+				specialSubTitleColorHex: this.$el.find('input#specialSubTitleColorHex').val(),
+				specialSubTitleColor: this.$el.find('input#specialSubTitleColorHex').val(),
 				specialBodyFont: this.$el.find('select#specialBodyFont').val(),
-				specialBodyColor: this.$el.find('input#specialBodyColor').val()
+				specialBodyColorHex: this.$el.find('input#specialBodyColorHex').val(),
+				specialBodyColor: this.$el.find('input#specialBodyColorHex').val()
 			};
 			
 			this.settings.set(attribs);
 			localStorage.setItem('k0skSettings', JSON.stringify(attribs));
+			this.loadForm();
 			this.render();
 		}
 

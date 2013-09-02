@@ -30,11 +30,15 @@ block settings
     form(action="")#settings-form
      .grid-parent
       .grid-100
-       label(for="headerText") Board Heading Title & Color
-      .grid-65
+       label(for="headerText") Board Heading Title
+      .grid-100
        input(type="text", name="headerText", maxlength="20")#headerText.input
-      .grid-35 
-       input(type="color", name="headerColor", value="#ff0000")#headerColor.input.input-mini
+      .grid-60
+       label(for="headerColorHex") Board Heading Color
+      .grid-20
+       input(type="text", name="headerColorHex", value="#ffffff", placeholder="#ffffff")#headerColorHex.input.input-mini
+      .grid-20
+       input(type="color", name="headerColor", value="#ffffff")#headerColor.input.input-mini
      .grid-parent
       .grid-100
        label Board Heading Font
@@ -44,26 +48,32 @@ block settings
      .grid-parent
       .grid-100
        label Special Title Font & Color
-      .grid-65
+      .grid-60
        select(name="specialTitleFont")#specialTitleFont.input
         include chunks/font-options
-      .grid-35 
+      .grid-20
+       input(type="text", name="specialTitleColorHex", value="#ffffff")#specialTitleColorHex.input.input-mini
+      .grid-20
        input(type="color", name="specialTitleColor", value="#ffffff")#specialTitleColor.input.input-mini
      .grid-parent
       .grid-100
        label Sub Title Font & Color
-      .grid-65
+      .grid-60
        select(name="specialSubTitleFont")#specialSubTitleFont.input
         include chunks/font-options
-      .grid-35 
+      .grid-20
+       input(type="text", name="specialSubTitleColorHex", value="#ffffff")#specialSubTitleColorHex.input.input-mini
+      .grid-20
        input(type="color", name="specialSubTitleColor", value="#ffffff")#specialSubTitleColor.input.input-mini
      .grid-parent
       .grid-100
        label Detail Font & Color
-      .grid-65
+      .grid-60
        select(name="specialBodyFont")#specialBodyFont.input
         include chunks/font-options
-      .grid-35 
+      .grid-20
+       input(type="text", name="specialBodyColorHex", value="#ffffff")#specialBodyColorHex.input.input-mini
+      .grid-20
        input(type="color", name="specialBodyColor", value="#ffffff")#specialBodyColor.input.input-mini
        
    .modal-footer  
@@ -92,3 +102,10 @@ block page-footer
   #footer-left-content
    img(src="/img/tsa-phone.png")#tsa-phone
  #page-footer-right.grid-70.tablet-grid-70.mobile-grid-100
+
+block admodal
+  #ad-block.modal.hide.fade
+   .ads-content
+   
+
+     

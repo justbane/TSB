@@ -28,6 +28,7 @@ $(function () {
             clearInterval(check);
             // Start the footer ad timing
             var footer = new FooterView({ el: $('#footer'), user: $.parseJSON(localStorage.getItem('k0skUser')) });
+            var adsModal = new AdsView({ el: $('#ad-block'), user: $.parseJSON(localStorage.getItem('k0skUser')) });
         }
     }, 3000);
     

@@ -37,13 +37,17 @@ $(function() {
             slideAnimation: 'slide',
             animationTimeout: 3000,
             headerText: "Today's Specials",
+            headerColorHex: "#ffffff",
             headerColor: "#ffffff",
             headerFont: "chalk",
             specialTitleFont: "chalk",
+            specialTitleColorHex: "#ffffff",
             specialTitleColor: "#ffffff",
             specialSubTitleFont: "chalk",
+            specialSubTitleColorHex: "#ffffff",
             specialSubTitleColor: "#ffffff",
             specialBodyFont: "arial",
+            specialBodyColorHex: "#ffffff",
             specialBodyColor: "#ffffff"
         }
     
