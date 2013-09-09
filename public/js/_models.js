@@ -30,6 +30,32 @@ $(function() {
     });
     
     
+    // Ads Defaults ----------------- */
+    Ads = Backbone.Model.extend({
+        defaults: {
+            internal: {
+               sierra: {
+                   assetUrl: 'https://s3-us-west-1.amazonaws.com/tsimagery/tsb/sponsors/sierra-nevada-1024.jpg',
+                   type: 'image',
+                   vendor: 'sierra'
+               },
+               amex: {
+                   assetUrl: 'https://s3-us-west-1.amazonaws.com/tsimagery/tsb/sponsors/amex-1024.jpeg',
+                   type: 'image',
+                   vendor: 'amex'
+               } 
+            }
+        }
+    });
+    
+   
+    AdServer = Backbone.Collection.extend({
+        
+        model: Ads
+    
+    });
+    
+    
     // Settings Defaults ----------------- */
     Settings = Backbone.Model.extend({
     

@@ -144,6 +144,9 @@ body {
   background-color: transparent;
   width: 1024px;
 }
+#ad-block.modal .ads-content div {
+  display: none;
+}
 /* 1024 breakpoint ------- */
 @media (max-width: 1025px) {
   #header-middle,

@@ -325,36 +325,83 @@ $(function() {
     AdsView = Backbone.View.extend({
         
         initialize: function() {
-            _.bindAll(this, 'getAdMedia', 'render');
+            _.bindAll(this, 'setAdMedia', 'render');
             
             this.timerStart = +new Date();
+            
+            this.ads = new Ads();
             
             this.render();
         },
         
-        getAdMedia: function() {
+        setAdMedia: function() {
+            var adsBlock = this;
             var venue = this.options.user;
+            var ads = this.ads.get('paid');
             
-            var str = '<video width="1024" height="576" id="ads-video">';
-                str += '<source src="" type="video/mp4">';
-                str += '</video>';
+            if(toType(ads) == 'undefined') {
+                ads = this.ads.get('internal');
+            }
             
-            this.$el.find('.ads-content').html(str);
-            this.$el.find('.ads-content > #ads-video > source').attr('src', 'https://s3-us-west-1.amazonaws.com/tsimagery/tsb/sponsors/GuinnessClip1.mp4');
-            
+            var str = '';
+            // Build the ads array
+            _.each(ads, function(item, key, list) {
+                
+                // Show the add
+                switch(item.type) {
+                    // Images
+                    case'image':
+                        str += '<div class="image">';
+                        str += '<img src="'+ item.assetUrl +'" />';
+                        str += '</div>';
+                        adsBlock.$el.find('.ads-content').html(str);
+                        break;
+                    
+                    // Videos
+                    case'video':
+                        /*str += '<div class="video">';
+                        str += '<video width="1024" height="576">';
+                        str += '<source src="" type="video/mp4">';
+                        str += '</video>';
+                        str += '</div>';
+                        adsBlock.$el.find('.ads-content').html(str);
+                        adsBlock.$el.find('.ads-content > #ads-video > source').attr('src', 'https://s3-us-west-1.amazonaws.com/tsimagery/tsb/sponsors/GuinnessClip1.mp4');*/
+                        break;
+                }
+               
+
+            });
         },
         
         render: function() {
-            var adsBlock = this
+            var adsBlock = this;
+            var ads = this.ads;
             var startTime = this.timerStart;
             var interval = +new Date();
+            
+            // Insert ads content
+            adsBlock.setAdMedia();
+            
+            // Check for our cookie and init the cookie variable
+            var adToShow = 0;
+            if($.cookie('adToShow')) {
+               adToShow = parseInt($.cookie('adToShow')); 
+            }
             
             setInterval(function() {
                 interval = +new Date();
                 
-                if((interval - startTime) > 90000) { // Every .5 min
+                // Handle cookie variable to ensure the ads cycle
+                if(adToShow > $('#ad-block > .ads-content > div').length - 1) {
+                    adToShow = 0;
+                }
+                
+                // Get the item to show in the ads container
+                var adItem = $('#ad-block > .ads-content > div').eq(adToShow);
+                
+                if((interval - startTime) > 90000 && $('#settings-block').css('display') == 'none') { // Every .5 min
                     // show the ad
-                    adsBlock.getAdMedia();
+                    
                     var modal = adsBlock.$el.modal({
                         keyboard: false, 
                         backdrop: 'static'
@@ -363,17 +410,43 @@ $(function() {
                             return window.pageXOffset-($(this).width() / 2 );
                         }
                     });
-                    var video = adsBlock.$el.find('.ads-content > #ads-video');
-                    // Listen for modal to be shown
-                    modal.on('shown', function(e) {
-                        video.get(0).play();
-                    });
-                    // Listen for video end to hide modal
-                    video.on('ended', function(e) {
-                        modal.modal('hide'); 
-                        // Reset our start time
-                        startTime = interval;
-                    });
+                    
+                    // Code for image ads
+                    if(adItem.hasClass('image')) {
+                        // Show the item in the modal
+                        adItem.css('display', 'block');
+                        var imgTimer = setTimeout(function() {
+                            modal.modal('hide');
+                            // Update the cookie
+                            adToShow = adToShow + 1;
+                            $.cookie('adToShow', adToShow);
+                            // Reset our start time
+                            startTime = interval;
+                            clearTimeout(imgTimer);
+                            // Hide the item
+                            adItem.fadeOut('slow');
+                        }, 8000);
+                        
+                    }
+                    
+                    // Code for video ads
+                    if(adItem.hasClass('video')) {
+                        // Show the item in the modal
+                        adItem.css('display', 'block');
+                        var video = adItem.find('video');
+                        // Listen for modal to be shown
+                        modal.on('shown', function(e) {
+                            video.get(0).play();
+                        });
+                        // Listen for video end to hide modal
+                        video.on('ended', function(e) {
+                            modal.modal('hide'); 
+                            // Reset our start time
+                            startTime = interval;
+                            // hide the item
+                            adItem.fadeOut('slow');
+                        });
+                    }
                 }
                 
             }, 30000); // Every 1.5 min
