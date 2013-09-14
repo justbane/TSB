@@ -90,7 +90,7 @@ $(function() {
 		},
 		
 		formatDays: function(string) {
-			return (string.charAt(0).toUpperCase() + string.slice(1)).substr(0, 3);
+			return (string.charAt(0).toUpperCase() + string.slice(1)).substr(0, 2);
 		},
 		
 		formatNumber: function(string) {
@@ -161,10 +161,8 @@ $(function() {
 			var separator = " ";
 			if(specialDays.length === 2) {
 				separator = " and ";
-			} else if(specialDays.length === 3) {
+			} else if(specialDays.length >= 3) {
 				separator = ", ";
-			} else if(specialDays.length > 3) {
-				separator = " - ";
 			}
 			
 			var recur = "";
@@ -173,10 +171,13 @@ $(function() {
 			}
 			
 			var daysString = "";
-			if(specialDays.length > 3) {
+			// TODO fix dat displays for missing days ina range eg: mon tu th fr
+			/*if(specialDays.length > 3) {
 				daysString += format(_.first(specialDays)) + " - " + format(_.last(specialDays)) + separator;
 			
-			} else if(specialDays.length <= 3 && parseInt(special.recurring_day, 10) === 0) {
+			} else */
+			
+			if(/*specialDays.length <= 3 && */ parseInt(special.recurring_day, 10) === 0) {
 				_.each(specialDays, function(day, key, list) {
 					daysString += format(day);
 					if(day != _.last(specialDays) || specialDays.length == 1) {
@@ -188,6 +189,10 @@ $(function() {
 			
 			} else if(specialDays.length === 0 && parseInt(special.recurring_day, 10) > 0) {
 				daysString += formatNum(special.recurring_month) + separator + format(days[(parseInt(special.recurring_day, 10) - 1)]) + separator;
+			}
+			
+			if(daysString.length > 0) {
+			    daysString = daysString + "<br />";
 			}
 			
 			var startTime = special.start_time;
@@ -236,7 +241,7 @@ $(function() {
 					slideContent += '<div class="grid-65 tablet-grid-70 mobile-grid-100 special-details">';
 					slideContent += '<h1 class="chalk">' + special.title + '</h1>';
 					slideContent += '<h2 class="chalk">' + special.subtitle + '</h2>';
-					slideContent += '<p>' + dateString + "<br />" + validString + '</p>';
+					slideContent += '<p>' + dateString + validString + '</p>';
 					slideContent += '<p>' + special.body + '</p>';
 					slideContent += '</div>';
 					slideContent += '</div>';
