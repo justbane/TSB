@@ -41,7 +41,15 @@ app.configure('production', function(){
 
 
 // Routes -----------------------------------------
+
+// GETs
 app.get('/', routes.index);
+app.get("/tsb.manifest", function(req, res){
+  res.header("Content-Type", "text/cache-manifest");
+  res.end("CACHE MANIFEST");
+});
+
+// POSTs
 app.post('/kosk', kosk.getspecials);
 app.post('/users/authenticate', user.authenticate);
 
