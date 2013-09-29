@@ -26,16 +26,58 @@
  	font-family: "chalkdustregular";
 }
 
-.indie-flower {
-	font-family: "Indie Flower", cursive;
+.rock-salt {
+    font-family: 'Rock Salt', cursive;
 }
 
-.englebert {
-    font-family: 'Englebert', sans-serif;
+.slide-content .special-details h1.rock-salt {
+    line-height: 1.5em !important;
 }
 
-.coming-soon {
-    font-family: 'Coming Soon', cursive;
+.covered-grace {
+    font-family: 'Covered By Your Grace', cursive;
+}
+
+.handlee {
+    font-family: 'Handlee', cursive;
+}
+
+.londrina-outline {
+    font-family: 'Londrina Outline', cursive;
+}
+
+.boogaloo {
+    font-family: 'Boogaloo', cursive;
+}
+
+.poiret-one {
+    font-family: 'Poiret One', cursive;
+}
+
+.miltonian {
+    font-family: 'Miltonian', cursive;
+}
+
+.luckiest-guy {
+    font-family: 'Luckiest Guy', cursive;
+}
+
+#header-middle h1.luckiest-guy {
+    line-height: 1em !important;
+    margin-top: 55px;
+}
+
+.gruppo {
+    font-family: 'Gruppo', cursive;
+}
+
+.special-elite {
+    font-family: 'Special Elite', cursive;
+}
+
+#header-middle h1.special-elite {
+    line-height: 1em !important;
+    margin-top: 50px;
 }
 
 .permanent-marker {

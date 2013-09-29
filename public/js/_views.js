@@ -164,20 +164,15 @@ $(function() {
 			} else if(specialDays.length >= 3) {
 				separator = ", ";
 			}
-			
+
 			var recur = "";
 			if(special.recurring > 0) {
 				recur = "Every ";
 			}
 			
 			var daysString = "";
-			// TODO fix dat displays for missing days ina range eg: mon tu th fr
-			/*if(specialDays.length > 3) {
-				daysString += format(_.first(specialDays)) + " - " + format(_.last(specialDays)) + separator;
-			
-			} else */
-			
-			if(/*specialDays.length <= 3 && */ parseInt(special.recurring_day, 10) === 0) {
+			// TODO fix day displays for missing days ina range eg: mon tu th fr
+			if(/*specialDays.length <= 3 &&*/ parseInt(special.recurring_day, 10) === 0) {
 				_.each(specialDays, function(day, key, list) {
 					daysString += format(day);
 					if(day != _.last(specialDays) || specialDays.length == 1) {
@@ -187,8 +182,8 @@ $(function() {
 					}
 				});
 			
-			} else if(specialDays.length === 0 && parseInt(special.recurring_day, 10) > 0) {
-				daysString += formatNum(special.recurring_month) + separator + format(days[(parseInt(special.recurring_day, 10) - 1)]) + separator;
+			} else if(/*specialDays.length === 0 &&*/ parseInt(special.recurring_day, 10) > 0) {
+				daysString += formatNum(special.recurring_month) + separator + format(days[(parseInt(special.recurring_day, 10) -1)]) + separator;
 			}
 			
 			if(daysString.length > 0) {
@@ -479,7 +474,7 @@ $(function() {
 		    var str = '<p>';
 		          str += 'Favorite ';
 		          str += venue.venue_title;
-		          str += ' on your phone to get updates!<br />Get Today\'s Specials in the App Store & Google Play';
+		          str += ' on your phone!<br />Get Today\'s Specials in the App Store & Google Play';
 		    str += '</p>';
 		    
 		    this.$el.find('#page-footer-right').html(str);

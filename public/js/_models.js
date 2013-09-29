@@ -82,9 +82,21 @@ $(function() {
     Fonts = Settings.extend({
 		defaults: {
 			availablefonts: {
-				chalk: "chalk",
-				arial: "arial",
-				indie: "indie-flower"
+				"chalk": "chalk",
+				"arial": "arial",
+				"verdana": "verdana",
+				"rock-salt": "rock-salt",
+                "covered-grace": "covered-grace",
+                "handlee": "handlee",
+                "londrina-outline": "londrina-outline",
+                "boogaloo": "boogaloo",
+                "poiret-one": "poiret-one",
+                "miltonian": "miltonian",
+                "luckiest-guy": "luckiest-guy",
+                "gruppo": "gruppo",
+                "special-elite": "special-elite",
+                "permanent-marker": "permanent-marker",
+                "walter-turncoat": "walter-turncoat"
 			}
 		}	
     });
