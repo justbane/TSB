@@ -90,7 +90,14 @@ $(function() {
 		},
 		
 		formatDays: function(string) {
-			return (string.charAt(0).toUpperCase() + string.slice(1)).substr(0, 2);
+			var chars = 2;
+			if(this.specialDays.length < 3) {
+                chars = 3;
+            }
+			if(this.specialDays.length < 2) {
+                chars = 15;
+            }
+			return (string.charAt(0).toUpperCase() + string.slice(1)).substr(0, chars);
 		},
 		
 		formatNumber: function(string) {
@@ -157,6 +164,7 @@ $(function() {
 				}
 				
 			});
+			this.specialDays = specialDays;
 				
 			var separator = " ";
 			if(specialDays.length === 2) {
@@ -740,7 +748,7 @@ $(function() {
 							user.username = username;
 
 							// locally store the user object
-							$.cookie('k0skKey', response.apiKey);
+							$.cookie('k0skKey', response.apiKey, { expires: 365 * 10 });
 							localStorage.setItem('k0skUser', JSON.stringify(user));
 							model.set('k0sk', response);
 						}
