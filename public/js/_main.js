@@ -1,6 +1,21 @@
 // Doc Ready
 $(function () {
     
+    /**
+     * Fix typeof
+     */
+    var toType = function(obj) {
+        return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+    };
+    
+    /**
+     * Notifier
+     */
+    var notifier = new Backbone.Notifier({
+        closeBtn: true
+    });
+    
+    
     // Show login if not logged in
     if(typeof $.cookie('k0skKey') == 'undefined' || $.cookie('k0skKey') == 'null') {
         var user = new UserView({ el: $('#login-block') });
@@ -24,7 +39,22 @@ $(function () {
         if(typeof $.cookie('k0skKey') != 'undefined' && $.cookie('k0skKey') != 'null'){
             venue.setVenue();
             venue.setUser($.parseJSON(localStorage.getItem('k0skUser')));
-            venue.getItems();
+            var checkSpecialsMsg = notifier.notify({
+                'type': 'warning',
+                message: 'Checking for specials...',
+                destroy: true,
+                loader: true,
+                ms: null
+            });
+            var getDataLoop = setInterval(function() { 
+                if(toType(venue.venueData.get('venue')) == 'undefined') {
+                    venue.getItems(true);
+                } else {
+                    checkSpecialsMsg.destroy()
+                    clearInterval(getDataLoop);
+                }
+            }, 2000);
+            
             clearInterval(check);
             // Start the footer ad timing
             var footer = new FooterView({ el: $('#footer'), user: $.parseJSON(localStorage.getItem('k0skUser')) });

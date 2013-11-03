@@ -43,8 +43,9 @@ $(function() {
 			this.userInfo = userInfo;
 		},
 
-		getItems: function() {
+		getItems: function(initCheck) {
 
+			var view = this;
 			var notifier = this.notifier;
 			var user = this.userInfo;
 
@@ -57,7 +58,7 @@ $(function() {
 			}
 			
 			// Start loading notifier
-			if(toType(this.venueData.get('venue')) == 'undefined') {
+			if(toType(this.venueData.get('venue')) == 'undefined' && !initCheck) {
 				var loader = notifier.notify({
 					message: "Loading Specials...",
 					position: 'center',
@@ -78,13 +79,17 @@ $(function() {
 					if(toType(loader) != 'undefined') {
 						loader.destroy();
 					}
+					
 				},
 				error: function(model, response, options) {
-					notifier.notify({
-						'type': 'error',
-						message: 'Error: Venue request encountered an error',
-						destroy: true
-					});
+					if(!initCheck) {
+					    notifier.notify({
+    						'type': 'error',
+    						message: 'Error: Venue request encountered an error',
+    						destroy: true
+    					});
+					}
+					
 				}
 			});
 		},
@@ -157,6 +162,7 @@ $(function() {
 				"saturday"
 			];
 			
+			// Setup the specialDays array based on the specials day
 			var specialDays = [];
 			_.each(days, function(day, key, list) {
 				if(special[day] === 1) {
@@ -165,22 +171,27 @@ $(function() {
 				
 			});
 			this.specialDays = specialDays;
-				
+			
+			// Set the separator for the days
 			var separator = " ";
 			if(specialDays.length === 2) {
 				separator = " and ";
 			} else if(specialDays.length >= 3) {
 				separator = ", ";
 			}
-
+            
+            // Set recurring sentence language
 			var recur = "";
-			if(special.recurring > 0) {
+			if((special.recurring > 0 && specialDays.length > 0) || (special.recurring > 0 && parseInt(special.recurring_day, 10) > 0)) {
 				recur = "Every ";
+			} else if(special.recurring == 0 && specialDays.length == 0) {
+			    recur = "Every Day ";
 			}
 			
+			// Form the string for special availability
 			var daysString = "";
 			// TODO fix day displays for missing days ina range eg: mon tu th fr
-			if(/*specialDays.length <= 3 &&*/ parseInt(special.recurring_day, 10) === 0) {
+			if(specialDays.length > 0 && parseInt(special.recurring_day, 10) === 0) {
 				_.each(specialDays, function(day, key, list) {
 					daysString += format(day);
 					if(day != _.last(specialDays) || specialDays.length == 1) {
@@ -190,7 +201,7 @@ $(function() {
 					}
 				});
 			
-			} else if(/*specialDays.length === 0 &&*/ parseInt(special.recurring_day, 10) > 0) {
+			} else if(specialDays.length === 0 && parseInt(special.recurring_day, 10) > 0) {
 				daysString += formatNum(special.recurring_month) + separator + format(days[(parseInt(special.recurring_day, 10) -1)]) + separator;
 			}
 			
@@ -289,7 +300,8 @@ $(function() {
 
 			var slider = $('.flexslider').flexslider({
 				animation: 'slide',
-				animationSpeed: 1000,
+				slideshowSpeed: 8000,
+				animationSpeed: 600,
 				controlNav: false,
 				directionNav: false,
 				pauseOnHover: false,
@@ -493,16 +505,20 @@ $(function() {
 			var footer = this
 			var startTime = this.timerStart;
 			var interval = +new Date();
+			
 			setInterval(function() {
 				if((interval - startTime) > 60000) {
 					// show the ad
 					footer.getText();
-                    footer.$el.animate({
-                        bottom : 0
-                    }, {
-                        duration : 1000,
-                        easing : 'easeOutBounce'
-                    });
+					footer.$el.show('fast', function() {
+					    footer.$el.animate({
+                            bottom : 0
+                        }, {
+                            duration : 1000,
+                            easing : 'easeOutBounce'
+                        });
+					});
+                    
                     // Set the timeout for hiding the ad
                     var hide = setTimeout(function() {
                         footer.$el.animate({
@@ -510,6 +526,8 @@ $(function() {
                         }, {
                             duration : 1000,
                             easing : 'easeInExpo'
+                        }, function() {
+                            footer.$el.hide();
                         });
                         clearTimeout(hide);
                     }, 10000);
