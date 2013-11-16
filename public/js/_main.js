@@ -59,8 +59,8 @@ $(function () {
             // Start the footer ad timing
             var footer = new FooterView({ el: $('#footer'), user: $.parseJSON(localStorage.getItem('k0skUser')) });
             
-            // Ads modal is disabled until ads mngt is ready
-            //var adsModal = new AdsView({ el: $('#ad-block'), user: $.parseJSON(localStorage.getItem('k0skUser')) });
+            // Ads modal
+            var adsModal = new AdsView({ el: $('#ad-block'), user: $.parseJSON(localStorage.getItem('k0skUser')) });
         }
     }, 3000);
     

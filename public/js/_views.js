@@ -348,7 +348,6 @@ $(function() {
             _.bindAll(this, 'setAdMedia', 'render');
             
             this.timerStart = +new Date();
-            
             this.ads = new Ads();
             
             this.render();
@@ -359,6 +358,9 @@ $(function() {
             var venue = this.options.user;
             var ads = this.ads.get('paid');
             
+            /* TODO: build ads mgnt. console. Model will get data...
+             * For now we use single file name from S3 in venue user data
+             */
             if(toType(ads) == 'undefined') {
                 ads = this.ads.get('internal');
             }
@@ -372,21 +374,22 @@ $(function() {
                     // Images
                     case'image':
                         str += '<div class="image">';
-                        str += '<img src="'+ item.assetUrl +'" />';
+                        // str += '<img src="'+ item.assetUrl +'" />';
+                        str += '<img src="'+ venue.sponsor_ad +'" />';
                         str += '</div>';
                         adsBlock.$el.find('.ads-content').html(str);
                         break;
                     
                     // Videos
-                    case'video':
-                        /*str += '<div class="video">';
+                    /* case'video':
+                        str += '<div class="video">';
                         str += '<video width="1024" height="576">';
                         str += '<source src="" type="video/mp4">';
                         str += '</video>';
                         str += '</div>';
                         adsBlock.$el.find('.ads-content').html(str);
-                        adsBlock.$el.find('.ads-content > #ads-video > source').attr('src', 'https://s3-us-west-1.amazonaws.com/tsimagery/tsb/sponsors/GuinnessClip1.mp4');*/
-                        break;
+                        adsBlock.$el.find('.ads-content > #ads-video > source').attr('src', 'https://s3-us-west-1.amazonaws.com/tsimagery/tsb/sponsors/GuinnessClip1.mp4');
+                        break; */
                 }
                
 
@@ -395,12 +398,21 @@ $(function() {
         
         render: function() {
             var adsBlock = this;
+            var venue = this.options.user;
             var ads = this.ads;
             var startTime = this.timerStart;
             var interval = +new Date();
             
             // Insert ads content
             adsBlock.setAdMedia();
+            
+            /*
+             * Account for sponsor ad missing or blank
+             * This will need to do the same if ads are blank from model
+             */
+            if($('#ad-block > .ads-content > div').length < 1 || venue.sponsor_ad.length < 1) {
+                return false;
+            }
             
             // Check for our cookie and init the cookie variable
             var adToShow = 0;
