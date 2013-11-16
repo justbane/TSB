@@ -43,13 +43,13 @@ block settings
       .grid-100
        label Board Heading Font
       .grid-100
-       select(name="headerFont")#headerFont.input
+       select(name="headerFont", class="selectpicker")#headerFont.input
         include chunks/font-options
      .grid-parent
       .grid-100
        label Special Title Font & Color
       .grid-60
-       select(name="specialTitleFont")#specialTitleFont.input
+       select(name="specialTitleFont", class="selectpicker")#specialTitleFont.input
         include chunks/font-options
       .grid-20
        input(type="text", name="specialTitleColorHex", value="#ffffff")#specialTitleColorHex.input.input-mini
@@ -59,7 +59,7 @@ block settings
       .grid-100
        label Sub Title Font & Color
       .grid-60
-       select(name="specialSubTitleFont")#specialSubTitleFont.input
+       select(name="specialSubTitleFont", class="selectpicker")#specialSubTitleFont.input
         include chunks/font-options
       .grid-20
        input(type="text", name="specialSubTitleColorHex", value="#ffffff")#specialSubTitleColorHex.input.input-mini
@@ -69,12 +69,17 @@ block settings
       .grid-100
        label Detail Font & Color
       .grid-60
-       select(name="specialBodyFont")#specialBodyFont.input
+       select(name="specialBodyFont", class="selectpicker")#specialBodyFont.input
         include chunks/font-options
       .grid-20
        input(type="text", name="specialBodyColorHex", value="#ffffff")#specialBodyColorHex.input.input-mini
       .grid-20
        input(type="color", name="specialBodyColor", value="#ffffff")#specialBodyColor.input.input-mini
+     .grid-parent
+      .grid-100
+       label(for="slideShowSpeed") Slide Show Speed (seconds)
+      .grid-100
+       input(type="text", name="slideShowSpeed", maxlength="2", size="2")#slideShowSpeed.input
        
    .modal-footer  
      button(type="button")#logout.btn.float-left Logout

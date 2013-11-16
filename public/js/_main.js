@@ -30,10 +30,13 @@ $(function () {
     var settings = new SettingsView({ el: $('#settings-block') });
     // Render the settings at least once on page load
     settings.render();
+    $('.selectpicker').selectpicker({
+        size: 5
+    });
     
     
     // Check for login and get some data
-    var venue = new VenueView({ el: $('.flexslider') });
+    var venue = new VenueView({ el: $('.flexslider'), settings: $.parseJSON(localStorage.getItem('k0skSettings')) });
 	
     var check = setInterval(function() {
         if(typeof $.cookie('k0skKey') != 'undefined' && $.cookie('k0skKey') != 'null'){

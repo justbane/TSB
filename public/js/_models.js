@@ -56,7 +56,7 @@ $(function() {
     
         defaults: {
             slideAnimation: 'slide',
-            animationTimeout: 3000,
+            slideShowSpeed: 8,
             headerText: "Today's Specials",
             headerColorHex: "#ffffff",
             headerColor: "#ffffff",

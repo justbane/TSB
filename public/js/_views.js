@@ -37,6 +37,9 @@ $(function() {
 				});
 			});
 			this.venueData.bind('change:venue', this.render);
+			
+			// Grab the settings
+			this.settings = this.options.settings;
 		},
 
 		setUser: function(userInfo) {
@@ -95,11 +98,8 @@ $(function() {
 		},
 		
 		formatDays: function(string) {
-			var chars = 2;
-			if(this.specialDays.length < 3) {
-                chars = 3;
-            }
-			if(this.specialDays.length < 2) {
+			var chars = 3;
+			if(this.specialDays.length < 4) {
                 chars = 15;
             }
 			return (string.charAt(0).toUpperCase() + string.slice(1)).substr(0, chars);
@@ -167,6 +167,13 @@ $(function() {
 			_.each(days, function(day, key, list) {
 				if(special[day] === 1) {
 					specialDays.push(day);
+				}
+				// Switch Sunday
+				if(specialDays[0] == 'sunday') {
+				    // remove it
+				    specialDays.splice(0, 1);
+				    // replace it at the end.
+				    specialDays.push('sunday');
 				}
 				
 			});
@@ -281,6 +288,7 @@ $(function() {
 			var specials = this.venueData.get('venue');
 			var intervaltime = +new Date();
 			var starttime = this.timerStart;
+			var settings = this.settings;
 			
 			// set the venue logo
 			if(this.userInfo.venue_image) {
@@ -297,10 +305,10 @@ $(function() {
 				}
 				view.makeSlides(specials);
 			}
-
+            
 			var slider = $('.flexslider').flexslider({
 				animation: 'slide',
-				slideshowSpeed: 8000,
+				slideshowSpeed: (settings.slideShowSpeed * 1000),
 				animationSpeed: 600,
 				controlNav: false,
 				directionNav: false,
@@ -694,7 +702,7 @@ $(function() {
 			
 			var attribs = {
 				slideAnimation: 'slide',
-				animationTimeout: 3000,
+				slideShowSpeed: this.$el.find('input#slideShowSpeed').val(),
 				headerText: this.$el.find('input#headerText').val(),
 				headerColorHex: this.$el.find('input#headerColorHex').val(),
 				headerColor: this.$el.find('input#headerColorHex').val(),
@@ -710,10 +718,21 @@ $(function() {
 				specialBodyColor: this.$el.find('input#specialBodyColorHex').val()
 			};
 			
+			// check for slideShowSpeed change
+			var reload = false;
+            if(attribs.slideShowSpeed != this.settings.get('slideShowSpeed')) {
+                reload = true;  
+            }
+			
 			this.settings.set(attribs);
 			localStorage.setItem('k0skSettings', JSON.stringify(attribs));
 			this.loadForm();
 			this.render();
+			
+			// reload if speed changed
+			if(reload) {
+			    location.reload();
+			}
 		}
 
 	});
