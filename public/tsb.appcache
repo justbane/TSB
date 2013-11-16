@@ -16,6 +16,7 @@ http://fonts.googleapis.com/css?family=Special+Elite
 http://fonts.googleapis.com/css?family=Walter+Turncoat
 http://fonts.googleapis.com/css?family=Permanent+Marker
 /css/bootstrap.min.css
+/css/bootstrap-select.css
 /css/themes/notifier-base.css
 /css/themes/notifier-theme-plastic.css
 /css/unsemantic.css
@@ -28,6 +29,7 @@ http://fonts.googleapis.com/css?family=Permanent+Marker
 /js/lib/jquery.cookie.js
 /js/lib/jquery.fullscreen.js
 /js/lib/bootstrap.min.js
+/js/lib/bootstrap-select.js
 /js/lib/underscore.js
 /js/lib/backbone.js
 /js/lib/backbone.notifier.js
