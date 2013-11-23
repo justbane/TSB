@@ -1,4 +1,5 @@
-var https = require('https');
+var https = require('https')
+  , uuid = require('node-uuid');
 
 /**
  * Authenticate users
@@ -8,11 +9,11 @@ var https = require('https');
 exports.authenticate = function(req, res) {
     
     var auth = new Buffer(req.param('username') + ':' + req.param('password')).toString('base64');
-    
+    var uu = uuid.v1();
     var options = {
       hostname: 'tsm.todaysspecialsapp.com',
       port: 8082,
-      path: '/api/tsc/v1/login?uu='+ req.param('username') +'&dv=iPhone',
+      path: '/api/tsc/v1/login?uu='+ uu +'&dv=TSB',
       method: 'GET',
       headers: {'Authorization': 'Basic ' + auth},
       rejectUnauthorized: false,

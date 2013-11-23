@@ -418,7 +418,7 @@ $(function() {
              * Account for sponsor ad missing or blank
              * This will need to do the same if ads are blank from model
              */
-            if($('#ad-block > .ads-content > div').length < 1 || venue.sponsor_ad.length < 1) {
+            if(toType(venue.sponsor_ad) == "undefined" || venue.sponsor_ad.length < 1 || $('#ad-block > .ads-content > div').length < 1) {
                 return false;
             }
             

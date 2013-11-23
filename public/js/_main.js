@@ -1,12 +1,38 @@
+/**
+ * Fix typeof
+ */
+var toType = function(obj) {
+    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+};
+
+// Window Ready
+$(window).ready(function() {
+    var appCache = window.applicationCache;
+    appCache.addEventListener('updateready', function(e) {
+        if (appCache.status == appCache.UPDATEREADY) {
+            // Browser downloaded a new app cache.
+            // Get the old setings of they exist.
+            var prevSettings = $.parseJSON(localStorage.getItem('k0skSettings'));
+            // Loop them into a new settings object to persist valid settings and 
+            // cover legacy settings that might change or deprecate.
+            var initSettings = new Settings();
+            for(x in prevSettings) {
+                if(toType(initSettings.defaults[x]) == "undefined") {
+                    initSettings.defaults[x] = prevSettings[x];
+                }
+                if(initSettings.defaults[x] != prevSettings[x]) {
+                    initSettings.defaults[x] = prevSettings[x];
+                }
+            }
+            // Set the settings object and reload
+            localStorage.setItem('k0skSettings', JSON.stringify(initSettings.defaults));
+            window.location.reload();
+        }
+  }, false);
+});
+
 // Doc Ready
 $(function () {
-    
-    /**
-     * Fix typeof
-     */
-    var toType = function(obj) {
-        return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
-    };
     
     /**
      * Notifier
@@ -126,10 +152,5 @@ $(function () {
        location.reload(); 
     });
 
-    
-});
-
-// Window Ready
-$(window).ready(function() {
     
 });
