@@ -78,6 +78,8 @@ $(function() {
 					model.set({
 						venue: response
 					});
+					// set these in storage
+					localStorage.setItem('k0skSpecialsCache', JSON.stringify(model.get('venue')));
 					// kill the loader
 					if(toType(loader) != 'undefined') {
 						loader.destroy();
@@ -92,6 +94,11 @@ $(function() {
     						destroy: true
     					});
 					}
+					// load the specials from cache
+					var cachedSpecials = $.parseJSON(localStorage.getItem('k0skSpecialsCache'));
+					model.set({
+					    venue: cachedSpecials
+					});
 					
 				}
 			});
@@ -512,9 +519,9 @@ $(function() {
 		getText: function() {
 		    var venue = this.options.user;
 		    var str = '<p>';
-		          str += 'Favorite ';
-		          str += venue.venue_title;
-		          str += ' on your phone!<br />Get Today\'s Specials in the App Store & Google Play';
+		          // str += 'Favorite ';
+		          // str += venue.venue_title + ' on your phone!<br />';
+		          str += 'Get Today\'s Specials in the App Store & Google Play!';
 		    str += '</p>';
 		    
 		    this.$el.find('#page-footer-right').html(str);

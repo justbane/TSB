@@ -79,7 +79,7 @@ $(function () {
                 if(toType(venue.venueData.get('venue')) == 'undefined') {
                     venue.getItems(true);
                 } else {
-                    checkSpecialsMsg.destroy()
+                    checkSpecialsMsg.destroy();
                     clearInterval(getDataLoop);
                 }
             }, 2000);
@@ -110,7 +110,7 @@ $(function () {
     
     // Catch the esc key
     $(document).keyup(function(e) {
-        if (e.keyCode == 27) { location.reload() }   // esc
+        if (e.keyCode == 27) { location.reload(); }   // esc
     });
     
     // Sticky footer ad
