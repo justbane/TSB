@@ -84,6 +84,7 @@ $(function() {
 					if(toType(loader) != 'undefined') {
 						loader.destroy();
 					}
+					$('#settings-button img').attr('src','/img/TSA_Icon.png');
 					
 				},
 				error: function(model, response, options) {
@@ -521,7 +522,8 @@ $(function() {
 		    var str = '<p>';
 		          // str += 'Favorite ';
 		          // str += venue.venue_title + ' on your phone!<br />';
-		          str += 'Get Today\'s Specials in the App Store & Google Play!';
+		          //str += 'Get Today\'s Specials in the App Store & Google Play!';
+		          str += 'Make ' + venue.venue_title + ' a Favorite & get Instant Updates';
 		    str += '</p>';
 		    
 		    this.$el.find('#page-footer-right').html(str);
@@ -529,7 +531,7 @@ $(function() {
 		},
 		
 		render: function() {
-			var footer = this
+			var footer = this;
 			var startTime = this.timerStart;
 			var interval = +new Date();
 			
@@ -833,6 +835,66 @@ $(function() {
 				$('#venue-logo').html('<img src="'+ k0sk.user.venue_image +'" />');
 			}
 		}
+	});
+	
+	
+	/*
+	 * Reloader view ------------------------
+	 */
+	ReloaderView = Backbone.View.extend({
+	    
+	    notifier: new Backbone.Notifier({
+            closeBtn: true
+        }),
+        
+        initialize: function() {
+            _.bindAll(this, 'render');
+
+            var notifier = this.notifier;
+
+            // Venue model
+            this.venue = new Venue();
+            
+            this.render();
+
+        },
+        
+        render: function() {
+            
+            var venue = this.venue;
+            var user = this.options.user;
+            var notifier = this.notifier;
+            
+            if(user.venue_id) {
+                venue.set({
+                    vid: user.venue_id,
+                    key: $.cookie('k0skKey'),
+                    username: user.username
+                });
+            }
+            
+            setInterval(function() {
+                // Try to get venue data to check connection
+                venue.save(null, {
+                    success: function(model, response, options) {
+                        // Success? reload the page
+                        location.reload();
+                    },
+                    error: function(model, response, options) {
+                        // caught - do nothing.
+                        notifier.notify({
+                            'type': 'error',
+                            message: 'Error: Venue request encountered an error',
+                            destroy: true
+                        });
+                        $('#settings-button img').attr('src','/img/TSA_Icon-noconn.png');
+                    }
+                });
+                
+            }, 28800000);
+            
+        }
+        
 	});
 
 });

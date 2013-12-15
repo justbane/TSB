@@ -132,10 +132,8 @@ $(function () {
 	 * Page Reloads
 	 */
 	
-	// Full page reload
-	setInterval(function() {
-		location.reload();
-	}, 28800000);
+	// Full page reloader
+	var reloader = new ReloaderView({ user: $.parseJSON(localStorage.getItem('k0skUser')) });
 	
 	// Reload the page on fullscreen change
     $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange',function(){

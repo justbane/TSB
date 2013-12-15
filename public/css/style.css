@@ -121,7 +121,7 @@ body {
 #footer #page-footer-left #footer-left-content img {
   max-width: 66%;
   position: relative;
-  left: 13%;
+  left: 5%;
   bottom: 35px;
 }
 #footer #page-footer-right {
@@ -132,7 +132,7 @@ body {
 #footer #page-footer-right p {
   display: block;
   margin-top: 20px;
-  font-size: 3.3em;
+  font-size: 3.2em;
   color: #fae915;
   text-shadow: 2px 2px 2px #000;
   line-height: 1.2em;
