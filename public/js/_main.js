@@ -102,7 +102,7 @@ $(function () {
     $('#page-headline h1').fitText(1.2);
     
     // Catch the logo click
-    $('#ts-logo').click(function() {
+    $('#ts-logo, #ts-logo-noconn').click(function() {
         $('#settings-block').modal({
             keyboard: false
         });

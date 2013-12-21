@@ -84,7 +84,9 @@ $(function() {
 					if(toType(loader) != 'undefined') {
 						loader.destroy();
 					}
-					$('#settings-button img').attr('src','/img/TSA_Icon.png');
+					// Set the icon indicator
+					$('#settings-button').show();
+					$("#settings-button-no-con").hide();
 					
 				},
 				error: function(model, response, options) {
@@ -95,6 +97,9 @@ $(function() {
     						destroy: true
     					});
 					}
+					// Set the icon indicator
+					$('#settings-button-no-con').show();
+                    $("#settings-button").hide();
 					// load the specials from cache
 					var cachedSpecials = $.parseJSON(localStorage.getItem('k0skSpecialsCache'));
 					model.set({
@@ -887,7 +892,8 @@ $(function() {
                             message: 'Error: Venue request encountered an error',
                             destroy: true
                         });
-                        $('#settings-button img').attr('src','/img/TSA_Icon-noconn.png');
+                        $('#settings-button-no-con').show();
+						$("#settings-button").hide();
                     }
                 });
                 

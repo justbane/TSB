@@ -42,9 +42,17 @@ body {
 #header-left #ts-logo {
   cursor: pointer;
 }
-#header-left #settings-button {
+#header-left #settings-button,
+#header-left #settings-button-no-con {
   margin-left: 10%;
   margin-top: 20%;
+}
+#header-left #settings-button img,
+#header-left #settings-button-no-con img {
+  max-width: 125%;
+}
+#header-left #settings-button-no-con {
+  display: none;
 }
 #header-middle {
   text-align: center;
