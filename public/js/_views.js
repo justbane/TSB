@@ -210,8 +210,8 @@ $(function() {
 			
 			// Form the string for special availability
 			var daysString = "";
-			// TODO fix day displays for missing days ina range eg: mon tu th fr
-			if(specialDays.length > 0 /*&& parseInt(special.recurring_day, 10) === 0*/) {
+			// TODO re-factor day/time code for more flexible display of dates and days
+			if(specialDays.length > 0 /* && parseInt(special.recurring_day, 10) === 0 */) {
 				_.each(specialDays, function(day, key, list) {
 					daysString += format(day);
 					if(day != _.last(specialDays) || specialDays.length == 1) {
